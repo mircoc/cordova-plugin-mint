@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+		id="eu.micilab.cordova.mint" version="0.1">
+	<name>Mint</name>
+	<description>Splunk Mint Plugin</description>
+	<license>Apache 2.0</license>
+	<keywords>cordova,splunk,mint</keywords>
+	
+	<js-module src="www/mint.js" name="Mint">
+		<clobbers target="mint" />
+	</js-module>
+
+	<preference name="APIKEY" />
+
+	<platform name="android">
+
+		<source-file src="platforms/android/res/values/mint.xml" target-dir="res/values" />
+        <config-file target="res/values/mint.xml" parent="/*">
+            <string name="mint_apikey">$APIKEY</string>
+        </config-file>
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="Mint">
+                <param name="android-package" value="eu.micilab.cordova.MintPlugin"/>
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+
+		<config-file target="AndroidManifest.xml" parent="/manifest/application">
+	        <meta-data android:name="mint_apikey" android:value="@string/mint_apikey" />
+	    </config-file>
+
+		<source-file src="platforms/android/src/eu/micilab/cordova/MintPlugin.java" target-dir="src/eu/micilab/cordova" />
+
+		<source-file src="platforms/android/libs/mint-4.1.jar" target-dir="libs" framework="yes"/>
+	</platform>
+</plugin>
